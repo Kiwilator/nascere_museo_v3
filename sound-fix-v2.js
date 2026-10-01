@@ -11,12 +11,15 @@
   let currentSource = -1;
   let busy = false;
 
-  function setButtonState(button, on, loading = false) {
+  function setButtonState(button, state) {
+    const on = state === 'on';
+    button.dataset.soundState = state;
     button.setAttribute('aria-pressed', on ? 'true' : 'false');
     const text = button.querySelector('[data-i18n="sound"]');
     if (!text) return;
     const en = document.documentElement.lang === 'en';
-    if (loading) text.textContent = en ? 'SOUND…' : 'SONIDO…';
+    if (state === 'loading') text.textContent = en ? 'SOUND…' : 'SONIDO…';
+    else if (state === 'unavailable') text.textContent = en ? 'NO SOUND' : 'SIN SONIDO';
     else if (on) text.textContent = en ? 'SOUND ON' : 'SONIDO ON';
     else text.textContent = en ? 'SOUND' : 'SONIDO';
   }
@@ -51,9 +54,10 @@
   async function turnOn(button) {
     if (busy) return;
     busy = true;
-    setButtonState(button, false, true);
+    setButtonState(button, 'loading');
 
     let played = false;
+    let lastError = null;
     for (let i = 0; i < SOURCES.length; i += 1) {
       try {
         await playSource(SOURCES[i]);
@@ -61,13 +65,16 @@
         played = true;
         break;
       } catch (error) {
-        console.warn(`[Nascere] No se pudo reproducir la fuente de audio ${i + 1}.`, error);
+        lastError = error;
       }
     }
 
     enabled = played;
-    setButtonState(button, enabled, false);
+    setButtonState(button, enabled ? 'on' : 'unavailable');
     button.dataset.audioMode = enabled ? `original-${currentSource + 1}` : 'unavailable';
+    if (!played) {
+      console.warn('[Nascere] El audio original externo no está disponible.', lastError?.name || lastError);
+    }
     busy = false;
   }
 
@@ -75,7 +82,7 @@
     const audio = getMedia();
     audio.pause();
     enabled = false;
-    setButtonState(button, false, false);
+    setButtonState(button, 'off');
     button.dataset.audioMode = 'off';
   }
 
@@ -87,7 +94,7 @@
     const button = original.cloneNode(true);
     original.replaceWith(button);
     button.dataset.soundFixBound = 'true';
-    setButtonState(button, false, false);
+    setButtonState(button, 'off');
 
     button.addEventListener('click', (event) => {
       event.preventDefault();
@@ -95,6 +102,10 @@
       if (enabled) turnOff(button);
       else turnOn(button);
     });
+
+    new MutationObserver(() => {
+      setButtonState(button, button.dataset.soundState || 'off');
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   }
 
   if (document.readyState === 'loading') {

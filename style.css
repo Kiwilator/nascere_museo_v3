@@ -42,7 +42,11 @@ canvas:active { cursor: grabbing; }
   inset: 0;
   z-index: 10;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .18s ease;
 }
+html.ui-ready #museum-ui { opacity: 1; visibility: visible; }
 
 .topbar {
   position: absolute;
@@ -147,46 +151,46 @@ canvas:active { cursor: grabbing; }
 .language-switcher span { color: rgba(255,255,255,.25); }
 
 #intro-card {
-  position: absolute;
-  left: 28px;
-  bottom: 28px;
-  width: min(390px, calc(100vw - 56px));
-  padding: 18px 20px 17px;
-  border: 1px solid rgba(231, 253, 253, 0.2);
-  border-radius: 16px;
-  background: rgba(8, 34, 42, 0.67);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: var(--shadow);
-  transition: opacity .45s ease, transform .45s ease;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(4, 24, 30, .72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .38s ease, visibility 0s linear 0s;
 }
-#intro-card.is-hidden { opacity: 0; transform: translateY(12px); }
-.intro-index {
-  display: inline-block;
-  margin-bottom: 10px;
-  font-size: 9px;
-  letter-spacing: .18em;
-  color: var(--sea);
+#intro-card.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .38s ease, visibility 0s linear .38s;
 }
-#intro-card p {
-  margin: 0;
-  max-width: 330px;
-  font-size: 13px;
-  line-height: 1.55;
-  color: rgba(248,255,255,.88);
+.intro-shell {
+  width: min(560px, calc(100vw - 48px));
+  padding: 34px 36px 30px;
+  border: 1px solid rgba(231, 253, 253, .22);
+  border-radius: 22px;
+  background: linear-gradient(155deg, rgba(8, 43, 52, .94), rgba(15, 62, 72, .92));
+  box-shadow: 0 28px 90px rgba(1, 18, 23, .42);
+  text-align: center;
 }
-.intro-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 13px;
-  font-size: 9px;
-  letter-spacing: .08em;
-  color: rgba(255,255,255,.55);
-}
-.intro-controls b { color: var(--white); font-weight: 600; }
-.intro-controls em { font-style: normal; margin-left: 4px; }
-.mobile-only { display: none; }
+.intro-kicker { display:block; margin-bottom:12px; font-size:9px; font-weight:600; letter-spacing:.22em; color:var(--sea); }
+#intro-card h2 { margin:0; font-family:'Manrope',sans-serif; font-size:clamp(28px,5vw,42px); line-height:1.05; font-weight:500; letter-spacing:-.035em; }
+#intro-card p { max-width:430px; margin:16px auto 0; font-size:13px; line-height:1.6; color:rgba(248,255,255,.78); }
+.intro-controls { display:flex; justify-content:center; flex-wrap:wrap; gap:14px; margin-top:24px; }
+.intro-controls > .control-card { min-width:150px; padding:13px 16px 12px; border:1px solid rgba(231,253,253,.16); border-radius:14px; background:rgba(255,255,255,.055); }
+.intro-controls b { display:block; color:var(--white); font-size:11px; line-height:1; font-weight:600; letter-spacing:.12em; }
+.intro-controls em { display:block; margin-top:7px; color:rgba(255,255,255,.55); font-size:9px; font-style:normal; letter-spacing:.08em; text-transform:uppercase; }
+.enter-museum { margin-top:26px; min-height:42px; padding:0 24px; border:1px solid rgba(232,255,255,.38); border-radius:999px; background:var(--foam); color:var(--deep); cursor:pointer; font-size:10px; font-weight:600; letter-spacing:.13em; transition:transform .18s ease,background .18s ease; }
+.enter-museum:hover { transform:translateY(-1px); background:#fff; }
+.enter-museum:active { transform:translateY(0); }
+.mobile-only { display:none; }
 
 #exhibit-hint {
   position: absolute;
@@ -372,6 +376,76 @@ canvas:active { cursor: grabbing; }
   transform: translate(0,0);
 }
 
+#controls-reminder {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 7;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 9px 7px 12px;
+  border: 1px solid rgba(222,249,250,.24);
+  border-radius: 12px;
+  background: rgba(8,43,52,.78);
+  color: var(--white);
+  box-shadow: 0 12px 34px rgba(1,18,23,.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 10px);
+  transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+}
+#controls-reminder.is-visible {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  transition-delay: 0s;
+}
+.reminder-desktop,
+.reminder-mobile {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+.reminder-mobile { display: none; }
+#controls-reminder i {
+  width: 1px;
+  height: 17px;
+  background: rgba(222,249,250,.22);
+}
+#controls-help {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  border: 1px solid rgba(117,216,222,.34);
+  border-radius: 999px;
+  background: rgba(117,216,222,.10);
+  color: var(--white);
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .10em;
+}
+#controls-help > span:first-child { color: var(--sea); font-size: 11px; }
+#controls-help:hover { background: rgba(117,216,222,.18); }
+html.panel-open #mobile-controls,
+html.panel-open #controls-reminder {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 #loading-screen {
   position: fixed;
   inset: 0;
@@ -448,12 +522,15 @@ canvas:active { cursor: grabbing; }
 @keyframes dot { 0%,100% { background: transparent; } 50% { background: var(--sea); } }
 
 @media (max-width: 720px) {
-  .topbar { padding: 16px; min-height: 68px; }
-  .brand-name { font-size: 17px; }
-  .brand-subtitle { font-size: 8px; }
-  .utility-button { padding: 0 10px; }
-  #reset-view { display: none; }
-  #intro-card { left: 16px; right: 16px; bottom: 146px; width: auto; }
+  .topbar { padding: 12px; min-height: 62px; gap: 10px; }
+  .brand-name { font-size: 14px; }
+  .brand-subtitle { margin-top: 5px; font-size: 7px; }
+  .top-actions { gap: 4px; }
+  .utility-button { min-height: 28px; padding: 0 7px; font-size: 8px; letter-spacing: .08em; }
+  .language-switcher { height: 28px; min-height: 28px; padding: 0 6px; font-size: 8px; }
+  #intro-card { padding:16px; }
+  .intro-shell { width:100%; padding:28px 20px 24px; }
+  .intro-controls { gap:10px; }
   .desktop-only { display: none; }
   .mobile-only { display: inline; }
   #mobile-controls { display: block; }
@@ -461,14 +538,436 @@ canvas:active { cursor: grabbing; }
   #exhibit-panel { top: 10px; right: 10px; bottom: 10px; width: calc(100vw - 20px); border-radius: 19px; }
   .panel-content { padding: 34px 25px 28px; }
   #panel-title { font-size: 34px; }
+  #controls-reminder {
+    left: auto;
+    right: 12px;
+    bottom: 76px;
+    max-width: calc(100vw - 158px);
+    gap: 7px;
+    padding: 6px 7px 6px 9px;
+    transform: translateY(10px);
+  }
+  #controls-reminder.is-visible { transform: translateY(0); }
+  .reminder-desktop { display: none; }
+  .reminder-mobile { display: flex; gap: 5px; font-size: 7px; letter-spacing: .05em; white-space: normal; }
+  #controls-reminder i { height: 14px; }
+  #controls-help { min-height: 22px; padding: 0 6px; font-size: 7px; }
 }
 
 @media (max-width: 430px) {
-  .language-switcher { display: none; }
   .top-actions { gap: 6px; }
   #intro-card p { font-size: 12px; }
 }
 
+@media (hover: none) and (pointer: coarse) {
+  #mobile-controls { display: block; }
+  #controls-reminder {
+    left: auto;
+    right: 12px;
+    bottom: 76px;
+    transform: translateY(10px);
+  }
+  #controls-reminder.is-visible { transform: translateY(0); }
+  .reminder-desktop { display: none; }
+  .reminder-mobile { display: flex; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+
+/* bacteria-style onboarding controls */
+.intro-controls > .control-card {
+  min-height: 158px;
+  flex: 1 1 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: left;
+}
+.control-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.intro-controls .control-copy b {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.25;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+.intro-controls .control-copy em {
+  margin: 0;
+  color: var(--sea);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
+
+/* Keyboard visual copied from the bacteria museum logic, recoloured for Nascere. */
+.controls-demo-wrap {
+  width: 128px;
+  height: 138px;
+  flex: 0 0 128px;
+  position: relative;
+}
+.controls-demo-keys {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  width: 98px;
+  display: grid;
+  grid-template-columns: repeat(3,30px);
+  grid-template-rows: repeat(2,30px);
+  gap: 4px;
+}
+.intro-controls .controls-demo-key {
+  min-width: 0;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  border: 1px solid rgba(232,251,251,.42);
+  border-radius: 6px;
+  background: rgba(255,255,255,.10);
+  color: var(--white);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 2px 0 rgba(1,18,23,.28);
+  animation: nascere-key-pulse 2.8s ease-in-out infinite;
+}
+.controls-demo-key.w { grid-column: 2; grid-row: 1; }
+.controls-demo-key.a { grid-column: 1; grid-row: 2; animation-delay: .35s; }
+.controls-demo-key.s { grid-column: 2; grid-row: 2; animation-delay: .70s; }
+.controls-demo-key.d { grid-column: 3; grid-row: 2; animation-delay: 1.05s; }
+.controls-demo-arrows {
+  position: absolute;
+  left: 24px;
+  top: 82px;
+  width: 80px;
+  display: grid;
+  grid-template-columns: repeat(3,24px);
+  grid-template-rows: repeat(2,24px);
+  gap: 3px;
+  opacity: .82;
+}
+.intro-controls .controls-demo-arrows .controls-demo-key {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+.controls-demo-arrows .up { grid-column: 2; grid-row: 1; }
+.controls-demo-arrows .left { grid-column: 1; grid-row: 2; animation-delay: .35s; }
+.controls-demo-arrows .down { grid-column: 2; grid-row: 2; animation-delay: .70s; }
+.controls-demo-arrows .right { grid-column: 3; grid-row: 2; animation-delay: 1.05s; }
+
+/* Mouse visual copied from the bacteria museum logic, recoloured for Nascere. */
+.controls-mouse-demo {
+  width: 124px;
+  height: 116px;
+  flex: 0 0 124px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.controls-mouse-shape {
+  width: 40px;
+  height: 60px;
+  position: relative;
+  border: 2px solid rgba(232,251,251,.72);
+  border-radius: 21px;
+  background: rgba(255,255,255,.08);
+  animation: nascere-mouse-drag 2.4s ease-in-out infinite;
+}
+.controls-mouse-shape::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 23px;
+  background: rgba(232,251,251,.35);
+}
+.controls-mouse-shape::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 12px;
+  height: 17px;
+  border-radius: 8px 4px 5px 4px;
+  background: var(--sea);
+  animation: nascere-click 2.4s ease-in-out infinite;
+}
+.controls-drag-arrows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  text-align: center;
+  color: var(--sea);
+  font-size: 20px;
+  letter-spacing: .16em;
+}
+
+@keyframes nascere-key-pulse {
+  0%,72%,100% { transform:translateY(0); background:rgba(255,255,255,.10); }
+  10%,28% { transform:translateY(2px); background:rgba(117,216,222,.24); }
+}
+@keyframes nascere-mouse-drag {
+  0%,18%,100% { transform:translateX(-17px); }
+  55%,72% { transform:translateX(17px); }
+}
+@keyframes nascere-click {
+  0%,12%,82%,100% { opacity:.42; transform:scale(1); }
+  20%,68% { opacity:1; transform:scale(.86); }
+}
+
+@media (max-width: 720px) {
+  .intro-controls > .control-card { min-height: 0; flex: 1 1 42%; display: flex; }
+  .intro-controls > .desktop-only { display: none; }
+  .intro-controls > .mobile-only { display: flex; flex-direction: column; text-align: center; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .controls-demo-key, .controls-mouse-shape, .controls-mouse-shape::after { animation: none !important; }
+}
+
+/* FINAL bacteria-layout onboarding override */
+#intro-card .intro-shell {
+  width: min(760px, calc(100vw - 44px));
+  padding: 28px 30px 24px;
+}
+#intro-card .intro-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  margin-top: 24px;
+  align-items: stretch;
+}
+#intro-card .intro-controls > .control-card {
+  min-width: 0;
+  min-height: 174px;
+  padding: 16px 18px;
+  margin: 0;
+  border: 1px solid rgba(231,253,253,.13);
+  border-radius: 14px;
+  background: rgba(255,255,255,.055);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 22px;
+  text-align: left;
+}
+
+/* Never show mobile cards on desktop. This must beat the generic control-card rule. */
+#intro-card .intro-controls > .mobile-only {
+  display: none !important;
+}
+#intro-card .intro-controls > .desktop-only {
+  display: flex !important;
+}
+
+/* Cancel the old generic span-card styling inside the visual demos. */
+#intro-card .controls-demo-wrap span,
+#intro-card .controls-mouse-demo span {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+#intro-card .control-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+#intro-card .control-copy em {
+  order: 0;
+  display: block;
+  margin: 0;
+  color: var(--sea);
+  font-size: 10px;
+  line-height: 1.2;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+#intro-card .control-copy b {
+  order: 1;
+  display: block;
+  margin: 0;
+  color: var(--white);
+  font-size: 14px;
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: .035em;
+  white-space: normal;
+}
+#intro-card .control-copy small {
+  order: 2;
+  display: block;
+  margin-top: 2px;
+  color: rgba(248,255,255,.60);
+  font-size: 11px;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Keyboard exactly like the bacteria museum: WASD block, then a separated arrow block. */
+#intro-card .controls-demo-wrap {
+  width: 128px;
+  height: 138px;
+  flex: 0 0 128px;
+  position: relative;
+  border: 0;
+  background: transparent;
+}
+#intro-card .controls-demo-keys {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  width: 98px;
+  height: 64px;
+  display: grid;
+  grid-template-columns: repeat(3,30px);
+  grid-template-rows: repeat(2,30px);
+  gap: 4px;
+  border: 0;
+  background: transparent;
+}
+#intro-card .controls-demo-arrows {
+  position: absolute;
+  left: 24px;
+  top: 82px;
+  width: 80px;
+  height: 51px;
+  display: grid;
+  grid-template-columns: repeat(3,24px);
+  grid-template-rows: repeat(2,24px);
+  gap: 3px;
+  opacity: .78;
+  border: 0;
+  background: transparent;
+}
+#intro-card .controls-demo-key {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  width: 30px !important;
+  height: 30px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(232,251,251,.42) !important;
+  border-radius: 6px !important;
+  background: rgba(255,255,255,.10) !important;
+  color: var(--white) !important;
+  font-size: 11px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  box-shadow: 0 2px 0 rgba(1,18,23,.28) !important;
+  animation: nascere-key-pulse 2.8s ease-in-out infinite;
+}
+#intro-card .controls-demo-arrows .controls-demo-key {
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 10px !important;
+}
+#intro-card .controls-demo-key.w { grid-column:2; grid-row:1; }
+#intro-card .controls-demo-key.a { grid-column:1; grid-row:2; animation-delay:.35s; }
+#intro-card .controls-demo-key.s { grid-column:2; grid-row:2; animation-delay:.70s; }
+#intro-card .controls-demo-key.d { grid-column:3; grid-row:2; animation-delay:1.05s; }
+#intro-card .controls-demo-arrows .up { grid-column:2; grid-row:1; }
+#intro-card .controls-demo-arrows .left { grid-column:1; grid-row:2; animation-delay:.35s; }
+#intro-card .controls-demo-arrows .down { grid-column:2; grid-row:2; animation-delay:.70s; }
+#intro-card .controls-demo-arrows .right { grid-column:3; grid-row:2; animation-delay:1.05s; }
+
+/* Mouse exactly like bacteria museum. */
+#intro-card .controls-mouse-demo {
+  width: 124px;
+  height: 116px;
+  flex: 0 0 124px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+}
+#intro-card .controls-mouse-shape {
+  width: 42px;
+  height: 64px;
+  position: relative;
+  border: 2px solid rgba(232,251,251,.72);
+  border-radius: 22px;
+  background: rgba(255,255,255,.07);
+  animation: nascere-mouse-drag 2.4s ease-in-out infinite;
+}
+#intro-card .controls-mouse-shape::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 24px;
+  background: rgba(232,251,251,.35);
+}
+#intro-card .controls-mouse-shape::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 13px;
+  height: 18px;
+  border-radius: 8px 4px 5px 4px;
+  background: var(--sea);
+  animation: nascere-click 2.4s ease-in-out infinite;
+}
+#intro-card .controls-drag-arrows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  color: var(--sea);
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: .16em;
+}
+
+@media (max-width: 720px) {
+  #intro-card .intro-shell {
+    width: min(390px, calc(100vw - 24px));
+    padding: 24px 18px 20px;
+  }
+  #intro-card .intro-controls {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  #intro-card .intro-controls > .desktop-only {
+    display: none !important;
+  }
+  #intro-card .intro-controls > .mobile-only {
+    display: flex !important;
+    min-height: 82px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+  }
 }

@@ -169,6 +169,7 @@
     }
     const sync = () => {
       const open = panel.classList.contains('is-open');
+      document.documentElement.classList.toggle('panel-open', open);
       veil.style.opacity = open ? '1' : '0';
       if (!open) clearActiveFocus();
     };
@@ -184,69 +185,6 @@
     });
   }
 
-  function setupSoundFix() {
-    const button = document.getElementById('sound-toggle');
-    const host = document.getElementById('seaSound');
-    if (!button || !host || button.dataset.nascereSoundFixed === 'true') return;
-    button.dataset.nascereSoundFixed = 'true';
-
-    /* 20% smaller than the shared utility-button dimensions. */
-    button.style.minHeight = '27.2px';
-    button.style.padding = '0 10.4px';
-    button.style.fontSize = '8px';
-    button.style.letterSpacing = '0.10em';
-    const dot = button.querySelector('.status-dot');
-    if (dot) {
-      dot.style.width = '4.8px';
-      dot.style.height = '4.8px';
-      dot.style.marginRight = '5.6px';
-    }
-
-    let audio = null;
-    let playing = false;
-    const src = host.dataset.audioSrc;
-
-    const setState = (on) => {
-      playing = on;
-      button.setAttribute('aria-pressed', on ? 'true' : 'false');
-    };
-
-    const ensureAudio = () => {
-      if (audio || !src) return audio;
-      audio = new Audio(src);
-      audio.loop = true;
-      audio.volume = 0.5;
-      audio.preload = 'auto';
-      audio.playsInline = true;
-      return audio;
-    };
-
-    button.addEventListener('click', (event) => {
-      /* This capture listener replaces the older A-Frame sound handler. */
-      event.preventDefault();
-      event.stopImmediatePropagation();
-
-      const player = ensureAudio();
-      if (!player) {
-        setState(false);
-        return;
-      }
-
-      if (playing) {
-        player.pause();
-        setState(false);
-        return;
-      }
-
-      const promise = player.play();
-      if (promise && typeof promise.then === 'function') {
-        promise.then(() => setState(true)).catch(() => setState(false));
-      } else {
-        setState(true);
-      }
-    }, true);
-  }
-
   function applyFinishingPass() {
     refineButtons();
     bindStandStates();
@@ -254,11 +192,9 @@
     refineVitrineSupports();
     setupPanelFocus();
     bindLanguageRefresh();
-    setupSoundFix();
   }
 
   function start() {
-    setupSoundFix();
     const scene = document.getElementById('museum-scene');
     const afterScene = () => {
       window.setTimeout(applyFinishingPass, 1350);

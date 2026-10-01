@@ -5,20 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="theme-color" content="#102c35" />
   <title>NASCERE — Museo virtual</title>
+  <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://aframe.io" crossorigin>
   <link rel="preconnect" href="https://cdn.glitch.global" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css?v=4" />
+  <link rel="stylesheet" href="./style.css?v=8" />
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.AFRAME) return;
+      const status = document.getElementById('loading-status');
+      if (status) status.textContent = 'No se pudo iniciar la escena 3D. Comprueba la conexión y recarga.';
+    }, { once: true });
+  </script>
   <script src="./parametric-bench-harmon.js?v=1"></script>
-  <script src="./script.js?v=4"></script>
+  <script src="./script.js?v=6"></script>
+  <script src="./controls-onboarding-final.js?v=2"></script>
+  <script src="./webgl-onboarding-fix.js?v=1"></script>
   <script src="./hotfix-v2.js?v=1"></script>
   <script src="./visual-fix-v2.js?v=1"></script>
   <script src="./interaction-pass-v2.js?v=2"></script>
   <script src="./jewellery-motion-v2.js?v=1"></script>
   <script src="./references-v2.js?v=1"></script>
+  <script src="./label-fix-v2.js?v=2"></script>
+  <script src="./sound-fix-v2.js?v=4"></script>
 </head>
 <body>
   <div id="loading-screen" aria-live="polite">
@@ -136,14 +148,40 @@
       </div>
     </header>
 
-    <div id="intro-card">
-      <span class="intro-index">01 — 04</span>
-      <p data-i18n="intro">Recorre el espacio y selecciona los puntos de la exposición para descubrir el proyecto.</p>
-      <div class="intro-controls">
-        <span class="desktop-only"><b>WASD</b> <em data-i18n="move">Mover</em></span>
-        <span class="desktop-only"><b>ARRASTRAR</b> <em data-i18n="look">Mirar</em></span>
-        <span class="mobile-only"><b>JOYSTICK</b> <em data-i18n="move">Mover</em></span>
-        <span class="mobile-only"><b>DESLIZAR</b> <em data-i18n="look">Mirar</em></span>
+    <div id="intro-card" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <div class="intro-shell">
+        <span class="intro-kicker" data-i18n="howTo">CÓMO RECORRER EL MUSEO</span>
+        <h2 id="intro-title" data-i18n="introTitle">Explora Nascere</h2>
+        <p data-i18n="intro">Recorre el espacio y selecciona los puntos de la exposición para descubrir el proyecto.</p>
+        <div class="intro-controls" aria-label="Controles de navegación">
+          <div class="desktop-only control-card keyboard-control">
+            <div class="controls-demo-wrap" aria-hidden="true">
+              <div class="controls-demo-keys">
+                <span class="controls-demo-key w">W</span>
+                <span class="controls-demo-key a">A</span>
+                <span class="controls-demo-key s">S</span>
+                <span class="controls-demo-key d">D</span>
+              </div>
+              <div class="controls-demo-arrows">
+                <span class="controls-demo-key up">↑</span>
+                <span class="controls-demo-key left">←</span>
+                <span class="controls-demo-key down">↓</span>
+                <span class="controls-demo-key right">→</span>
+              </div>
+            </div>
+            <div class="control-copy"><em data-i18n="move">MOVER</em><b>WASD O FLECHAS</b><small>Usa WASD o las flechas del teclado</small></div>
+          </div>
+          <div class="desktop-only control-card mouse-control">
+            <div class="controls-mouse-demo" aria-hidden="true">
+              <div class="controls-mouse-shape"></div>
+              <div class="controls-drag-arrows">← →</div>
+            </div>
+            <div class="control-copy"><em data-i18n="look">MIRAR</em><b>CLIC + ARRASTRAR</b><small>Mantén pulsado el botón izquierdo y arrastra</small></div>
+          </div>
+          <div class="mobile-only control-card"><b>JOYSTICK</b><em data-i18n="move">Mover</em></div>
+          <div class="mobile-only control-card"><b>DESLIZAR</b><em data-i18n="look">Mirar</em></div>
+        </div>
+        <button id="enter-museum" class="enter-museum" type="button" data-i18n="enter">ENTRAR AL MUSEO</button>
       </div>
     </div>
 
@@ -157,6 +195,18 @@
     </aside>
 
     <div id="mobile-controls" aria-label="Control de movimiento"><div id="joystick-base"><div id="joystick-nub"></div></div></div>
+
+    <div id="controls-reminder" aria-hidden="true">
+      <div class="reminder-desktop" aria-hidden="true">
+        <span data-guide-reminder="desktopMove"></span>
+        <i></i>
+        <span data-guide-reminder="desktopLook"></span>
+      </div>
+      <div class="reminder-mobile" aria-hidden="true">
+        <span data-guide-reminder="mobileMove"></span><i></i><span data-guide-reminder="mobileLook"></span>
+      </div>
+      <button id="controls-help" type="button"><span aria-hidden="true">?</span><span data-guide-reminder="help"></span></button>
+    </div>
   </div>
 </body>
 </html>
