@@ -1,9 +1,7 @@
 /* NASCERE V2 — original sea-theme sound only. No generated noise fallback. */
 (() => {
   const SOURCES = [
-    'https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/sea_theme.mp3?v=1726130217666',
-    'https://cdn.glitch.me/875c914b-5bf9-4bd8-8d5b-92c7da9612b5%2Fsea_theme.mp3?v=1726130217666',
-    'https://cdn.glitch.com/875c914b-5bf9-4bd8-8d5b-92c7da9612b5%2Fsea_theme.mp3?v=1726130217666'
+    './assets/sea_theme.mp3?v=1'
   ];
 
   let enabled = false;
@@ -11,15 +9,12 @@
   let currentSource = -1;
   let busy = false;
 
-  function setButtonState(button, state) {
-    const on = state === 'on';
-    button.dataset.soundState = state;
+  function setButtonState(button, on, loading = false) {
     button.setAttribute('aria-pressed', on ? 'true' : 'false');
     const text = button.querySelector('[data-i18n="sound"]');
     if (!text) return;
     const en = document.documentElement.lang === 'en';
-    if (state === 'loading') text.textContent = en ? 'SOUND…' : 'SONIDO…';
-    else if (state === 'unavailable') text.textContent = en ? 'NO SOUND' : 'SIN SONIDO';
+    if (loading) text.textContent = en ? 'SOUND…' : 'SONIDO…';
     else if (on) text.textContent = en ? 'SOUND ON' : 'SONIDO ON';
     else text.textContent = en ? 'SOUND' : 'SONIDO';
   }
@@ -54,10 +49,9 @@
   async function turnOn(button) {
     if (busy) return;
     busy = true;
-    setButtonState(button, 'loading');
+    setButtonState(button, false, true);
 
     let played = false;
-    let lastError = null;
     for (let i = 0; i < SOURCES.length; i += 1) {
       try {
         await playSource(SOURCES[i]);
@@ -65,16 +59,13 @@
         played = true;
         break;
       } catch (error) {
-        lastError = error;
+        console.warn(`[Nascere] No se pudo reproducir la fuente de audio ${i + 1}.`, error);
       }
     }
 
     enabled = played;
-    setButtonState(button, enabled ? 'on' : 'unavailable');
+    setButtonState(button, enabled, false);
     button.dataset.audioMode = enabled ? `original-${currentSource + 1}` : 'unavailable';
-    if (!played) {
-      console.warn('[Nascere] El audio original externo no está disponible.', lastError?.name || lastError);
-    }
     busy = false;
   }
 
@@ -82,7 +73,7 @@
     const audio = getMedia();
     audio.pause();
     enabled = false;
-    setButtonState(button, 'off');
+    setButtonState(button, false, false);
     button.dataset.audioMode = 'off';
   }
 
@@ -94,7 +85,7 @@
     const button = original.cloneNode(true);
     original.replaceWith(button);
     button.dataset.soundFixBound = 'true';
-    setButtonState(button, 'off');
+    setButtonState(button, false, false);
 
     button.addEventListener('click', (event) => {
       event.preventDefault();
@@ -102,10 +93,6 @@
       if (enabled) turnOff(button);
       else turnOn(button);
     });
-
-    new MutationObserver(() => {
-      setButtonState(button, button.dataset.soundState || 'off');
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   }
 
   if (document.readyState === 'loading') {

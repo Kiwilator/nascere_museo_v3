@@ -260,12 +260,7 @@
     });
   }
 
-  function restoreOriginalBench() {
-    document.querySelectorAll('[deferred-gltf*="parametric_bench_002.glb"], [gltf-model*="parametric_bench_002.glb"]').forEach((el) => el.remove());
-  }
-
   function apply() {
-    restoreOriginalBench();
     fixGlass();
     fixSideDisplayCase();
     const jewellery = [...document.querySelectorAll('.jewellery')].slice(0, 8);
@@ -283,7 +278,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    restoreOriginalBench();
     const scene = document.getElementById('museum-scene');
     const afterScene = () => {
       requestAnimationFrame(apply);

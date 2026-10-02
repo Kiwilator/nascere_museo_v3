@@ -5,32 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="theme-color" content="#102c35" />
   <title>NASCERE — Museo virtual</title>
-  <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://aframe.io" crossorigin>
   <link rel="preconnect" href="https://cdn.glitch.global" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css?v=8" />
+  <link rel="stylesheet" href="./style.css?v=4" />
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.AFRAME) return;
-      const status = document.getElementById('loading-status');
-      if (status) status.textContent = 'No se pudo iniciar la escena 3D. Comprueba la conexión y recarga.';
-    }, { once: true });
-  </script>
   <script src="./parametric-bench-harmon.js?v=1"></script>
-  <script src="./script.js?v=6"></script>
-  <script src="./controls-onboarding-final.js?v=2"></script>
-  <script src="./webgl-onboarding-fix.js?v=1"></script>
-  <script src="./hotfix-v2.js?v=1"></script>
+  <script src="./script.js?v=14"></script>
+  <script src="./hotfix-v2.js?v=3"></script>
   <script src="./visual-fix-v2.js?v=1"></script>
   <script src="./interaction-pass-v2.js?v=2"></script>
-  <script src="./jewellery-motion-v2.js?v=1"></script>
+  <script src="./jewellery-motion-v2.js?v=2"></script>
   <script src="./references-v2.js?v=1"></script>
-  <script src="./label-fix-v2.js?v=2"></script>
-  <script src="./sound-fix-v2.js?v=4"></script>
 </head>
 <body>
   <div id="loading-screen" aria-live="polite">
@@ -48,23 +36,63 @@
     background="color: #17363f"
     vr-mode-ui="enabled: true"
   >
-    <a-sky src="./assets/entorno_universidad0001.jpg"></a-sky>
+    <a-sky src="https://cdn.glitch.global/6129616c-d685-405f-9e5a-3869316b8be0/entorno_universidad0001.jpg?v=1655202508267"></a-sky>
 
-    <a-entity id="seaSound" sound="autoplay: false; loop: true; volume: 0.5" data-audio-src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/sea_theme.mp3?v=1726130217666"></a-entity>
+    <a-entity id="seaSound" sound="autoplay: false; loop: true; volume: 0.5" data-audio-src="./assets/sea_theme.mp3?v=1"></a-entity>
 
-    <a-entity id="animated-light" light="type: point; intensity: 0.72; color: #e7ffff; castShadow: true" position="0 3 0"></a-entity>
-    <a-entity id="animated-light-right" light="type: point; intensity: 0.28; color: #55b8c4; castShadow: true" position="0 3 10"></a-entity>
-    <a-entity id="animated-light-left" light="type: point; intensity: 0.30; color: #4a9eaa; castShadow: true" position="0 0.5 -10"></a-entity>
-    <a-entity light="type: hemisphere; color: #f1ffff; groundColor: #163d47; intensity: 0.42"></a-entity>
+    <a-entity id="animated-light" light="type: point; intensity: 0.38; color: #e7ffff; castShadow: false" position="0 3 0"></a-entity>
+    <a-entity id="animated-light-right" light="type: point; intensity: 0.16; color: #55b8c4; castShadow: false" position="0 3 10"></a-entity>
+    <a-entity id="animated-light-left" light="type: point; intensity: 0.16; color: #4a9eaa; castShadow: false" position="0 0.5 -10"></a-entity>
+    <a-entity light="type: hemisphere; color: #f1ffff; groundColor: #163d47; intensity: 0.26"></a-entity>
     <a-entity light="type: directional; color: #c8f6f7; intensity: 0.22" position="-2 3.6 -1"></a-entity>
+    <a-entity id="museum-shadow-light" light="type: directional; color: #f4ffff; intensity: 0.78; castShadow: true" position="-2 6 3"></a-entity>
 
     <!-- Arquitectura -->
-    <a-box src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/553fe1ce2125e3ec2dd12904f15ab910.jpg?v=1725359321181" depth="40" height="0.1" width="40" position="0 0 0" material="repeat: 18 18; color: #d4e6e7; roughness: 0.88" shadow="receive: true"></a-box>
-    <a-box class="wall" src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/ab41fbcb999101f44ec24634cdf4625e.jpg?v=1725359473511" depth="40" height="5" width="0.5" position="0 1.5 -6" rotation="0 90 0" material="repeat: 10 1" shadow="receive: true"></a-box>
-    <a-box class="wall" src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/ab41fbcb999101f44ec24634cdf4625e.jpg?v=1725359473511" depth="40" height="5" width="0.5" position="6 1.5 0" material="repeat: 10 1" shadow="receive: true"></a-box>
-    <a-box class="wall" src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/ab41fbcb999101f44ec24634cdf4625e.jpg?v=1725359473511" depth="40" height="5" width="0.5" position="0 1.5 6" rotation="0 90 0" material="repeat: 10 1" shadow="receive: true"></a-box>
-    <a-box class="wall" src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/ab41fbcb999101f44ec24634cdf4625e.jpg?v=1725359473511" depth="40" height="5" width="0.5" position="-6 1.5 0" material="repeat: 10 1" shadow="receive: true"></a-box>
-    <a-box src="./assets/white_stucco_diff_1k.jpg" depth="40" height="0.2" width="40" position="0 4 0" rotation="180 0 0" material="repeat: 10 10; color: #dcebed; roughness: 0.95"></a-box>
+    <a-plane id="museum-floor" width="40" height="40" position="0 0.002 0" rotation="-90 0 0" material="color: #d2d6d5; roughness: 0.96; metalness: 0; shader: standard; side: front" shadow="receive: true; cast: false" museum-floor-finish></a-plane>
+    <a-box class="wall" src="./assets/white_wall_stucko.png?v=1" depth="40" height="5" width="0.5" position="0 1.5 -6" rotation="0 90 0" material="repeat: 10 1" shadow="cast: false; receive: true"></a-box>
+    <a-box class="wall" src="./assets/white_wall_stucko.png?v=1" depth="40" height="5" width="0.5" position="6 1.5 0" material="repeat: 10 1" shadow="cast: false; receive: true"></a-box>
+    <a-box class="wall" src="./assets/white_wall_stucko.png?v=1" depth="40" height="5" width="0.5" position="0 1.5 6" rotation="0 90 0" material="repeat: 10 1" shadow="cast: false; receive: true"></a-box>
+    <a-box class="wall" src="./assets/white_wall_stucko.png?v=1" depth="40" height="5" width="0.5" position="-6 1.5 0" material="repeat: 10 1" shadow="cast: false; receive: true"></a-box>
+    <a-box id="museum-ceiling" src="./assets/white_ceiling_stucko.png?v=3" depth="40" height="0.2" width="40" position="0 4 0" rotation="180 0 0" material="shader: flat; repeat: 6 6; color: #d8e0e0; side: double" shadow="cast: false; receive: false"></a-box>
+    <a-entity id="ceiling-edge-shading">
+      <!-- Front / back ceiling perimeter -->
+      <a-plane
+        width="12"
+        height="1.25"
+        position="0 3.892 -5.38"
+        rotation="-90 0 0"
+        material="color: #40565a; opacity: 0.030; transparent: true; shader: flat; side: double; depthWrite: false"
+        shadow="cast: false; receive: false">
+      </a-plane>
+
+      <a-plane
+        width="12"
+        height="1.25"
+        position="0 3.892 5.38"
+        rotation="-90 0 0"
+        material="color: #40565a; opacity: 0.030; transparent: true; shader: flat; side: double; depthWrite: false"
+        shadow="cast: false; receive: false">
+      </a-plane>
+
+      <!-- Left / right ceiling perimeter -->
+      <a-plane
+        width="1.25"
+        height="12"
+        position="-5.38 3.891 0"
+        rotation="-90 0 0"
+        material="color: #40565a; opacity: 0.030; transparent: true; shader: flat; side: double; depthWrite: false"
+        shadow="cast: false; receive: false">
+      </a-plane>
+
+      <a-plane
+        width="1.25"
+        height="12"
+        position="5.38 3.891 0"
+        rotation="-90 0 0"
+        material="color: #40565a; opacity: 0.030; transparent: true; shader: flat; side: double; depthWrite: false"
+        shadow="cast: false; receive: false">
+      </a-plane>
+    </a-entity>
 
     <!-- Peanas y vitrinas -->
     <a-entity class="wall" geometry="primitive: cylinder; radius: 0.5; height: 1; segmentsRadial: 6" material="color: #254f57; roughness: 0.48; metalness: 0.14" position="-2 0.5 -2"></a-entity>
@@ -72,10 +100,10 @@
     <a-entity class="wall" geometry="primitive: cylinder; radius: 0.5; height: 1; segmentsRadial: 6" material="color: #254f57; roughness: 0.48; metalness: 0.14" position="-2 0.5 2"></a-entity>
     <a-entity class="wall" geometry="primitive: cylinder; radius: 0.5; height: 1; segmentsRadial: 6" material="color: #254f57; roughness: 0.48; metalness: 0.14" position="2 0.5 2"></a-entity>
 
-    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="-2 1.25 -2"></a-entity>
-    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="2 1.25 -2"></a-entity>
-    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="-2 1.25 2"></a-entity>
-    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="2 1.25 2"></a-entity>
+    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="-2 1.25 -2" shadow="cast: false; receive: false"></a-entity>
+    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="2 1.25 -2" shadow="cast: false; receive: false"></a-entity>
+    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="-2 1.25 2" shadow="cast: false; receive: false"></a-entity>
+    <a-entity geometry="primitive: cylinder; radius: 0.45; height: 5; segmentsRadial: 6" material="color: #dffcff; opacity: 0.16; transparent: true; roughness: 0.08; side: double" position="2 1.25 2" shadow="cast: false; receive: false"></a-entity>
 
     <a-ring position="-2 0.055 -2" rotation="-90 0 0" radius-inner="0.53" radius-outer="0.555" material="color: #75d8de; shader: flat; opacity: 0.42; transparent: true"></a-ring>
     <a-ring position="2 0.055 -2" rotation="-90 0 0" radius-inner="0.53" radius-outer="0.555" material="color: #75d8de; shader: flat; opacity: 0.42; transparent: true"></a-ring>
@@ -83,12 +111,12 @@
     <a-ring position="2 0.055 2" rotation="-90 0 0" radius-inner="0.53" radius-outer="0.555" material="color: #75d8de; shader: flat; opacity: 0.42; transparent: true"></a-ring>
 
     <!-- Gráfica -->
-    <a-box src="./assets/_388d7e97-9cb8-40b3-9130-14ad9acfd6f6.jpg" depth="5" height="5" width="0.45" position="-3 1.5 -5.95" rotation="0 90 0"></a-box>
-    <a-box src="./assets/_0f20b462-f23c-42f5-811b-485aaca6b5c8.jpg" depth="5" height="5" width="0.45" position="3 1.5 -5.95" rotation="0 90 0"></a-box>
-    <a-box src="./assets/_388d7e97-9cb8-40b3-9130-14ad9acfd6f6.jpg" depth="5" height="5" width="0.45" position="-3 1.5 5.95" rotation="0 90 0"></a-box>
-    <a-box src="./assets/_0f20b462-f23c-42f5-811b-485aaca6b5c8.jpg" depth="5" height="5" width="0.45" position="3 1.5 5.95" rotation="0 90 0"></a-box>
-    <a-box src="https://cdn.glitch.global/875c914b-5bf9-4bd8-8d5b-92c7da9612b5/OIG2.jpg?v=1725360610392" depth="2" height="1.56" width="0.2" position="-5.8 1.5 -3.3"></a-box>
-    <a-box src="./assets/_b54debe5-266c-4fb0-8baa-5dfe39c80cb8.jpg" depth="2" height="1.56" width="0.2" position="-5.8 1.5 3"></a-box>
+    <a-box src="./assets/wallpaper_sea_parametric_1.png?v=1" depth="5" height="5" width="0.45" position="-3 1.5 -5.95" rotation="0 90 0" shadow="cast: false; receive: false"></a-box>
+    <a-box src="./assets/wallpaper_sea_parametric_2.png?v=1" depth="5" height="5" width="0.45" position="3 1.5 -5.95" rotation="0 90 0" shadow="cast: false; receive: false"></a-box>
+    <a-box src="./assets/wallpaper_sea_parametric_3.png?v=1" depth="5" height="5" width="0.45" position="-3 1.5 5.95" rotation="0 90 0" shadow="cast: false; receive: false"></a-box>
+    <a-box src="./assets/wallpaper_sea_parametric_4.png?v=1" depth="5" height="5" width="0.45" position="3 1.5 5.95" rotation="0 90 0" shadow="cast: false; receive: false"></a-box>
+    <a-box src="./assets/wallpaper_sea_parametric_5.png?v=1" depth="2" height="1.56" width="0.2" position="-5.8 1.5 -3.3" shadow="cast: false; receive: false"></a-box>
+    <a-box src="./assets/_b54debe5-266c-4fb0-8baa-5dfe39c80cb8.jpg" depth="2" height="1.56" width="0.2" position="-5.8 1.5 3" shadow="cast: false; receive: false"></a-box>
 
     <a-box class="wall" src="https://raw.githubusercontent.com/oluisjuan/LongCovid-Pilot/6cb8541bd70d241880310ad02f84dee1ab6ba867/material/darktexture.jpg" depth="10" height="1" width="0.5" position="4 0.5 0" material="repeat: 10 1"></a-box>
 
@@ -111,9 +139,9 @@
     <a-entity gltf-model="./assets/display_podium.glb" scale="0.1 0.1 0.1" position="-2 0.95 -2"></a-entity>
 
     <!-- Mobiliario original y banco paramétrico adaptado para Nascere. -->
-    <a-entity deferred-gltf="src: ./assets/parametric_bench_002.glb; delay: 250" scale="0.003 0.003 0.005" position="0.3 3.9 0" rotation="20 90 180"></a-entity>
-    <a-entity deferred-gltf="src: ./assets/modern_door(1).glb; delay: 450" scale="0.4 0.24 0.24" position="-5.68 0 0"></a-entity>
-    <a-entity deferred-gltf="src: ./assets/ceiling_light.glb; delay: 650" scale="0.5 0.5 0.9" position="-0.1 3.86 0.2"></a-entity>
+    <a-entity id="ceiling-sculptural-lamp" deferred-gltf="src: ./assets/parametric_bench_002.glb; delay: 250" scale="0.003 0.003 0.005" position="0.3 3.9 0" rotation="20 90 180" shadow="cast: false; receive: false"></a-entity>
+    <a-entity id="museum-entry-door" deferred-gltf="src: ./assets/modern_door(1).glb; delay: 450" scale="0.4 0.24 0.24" position="-5.68 0 0" shadow="cast: false; receive: true" no-cast-shadow></a-entity>
+    <a-entity id="ceiling-light-model" deferred-gltf="src: ./assets/ceiling_light.glb; delay: 650" scale="0.5 0.5 0.9" position="-0.1 3.86 0.2" shadow="cast: false; receive: false"></a-entity>
     <a-entity deferred-gltf="src: ./assets/desktop_computer.glb; delay: 850" scale="0.7 0.7 0.7" position="4 1.22 3" rotation="0 90 0"></a-entity>
     <a-entity deferred-gltf="src: ./assets/desktop_computer.glb; delay: 1000" scale="0.7 0.7 0.7" position="4 1.22 1" rotation="0 90 0"></a-entity>
     <a-entity deferred-gltf="src: ./assets/display_case_maya.glb; delay: 1150" scale="6 6 50" position="4 0.8 -2.3"></a-entity>
@@ -126,7 +154,21 @@
     <a-entity deferred-gltf="src: ./assets/abstract_trashcan.glb; delay: 2450" scale="0.8 0.8 0.8" position="0.2 0.37 -0.8" rotation="0 40 0"></a-entity>
 
     <!-- Sustitución robusta del antiguo sello remoto -->
-    <a-text value="NASCERE" position="5.68 2.15 0" rotation="0 -90 0" align="center" width="3.2" color="#e8fbfb" material="shader: flat"></a-text>
+    <a-entity id="museum-wall-title" position="5.66 2.35 0" rotation="0 -90 0">
+      <a-entity
+        id="museum-wall-seal"
+        binary-stl-model="src: ./assets/SELLONASCERE (1).stl; color: #dceced; edgeColor: #24454d; roughness: 0.38; metalness: 0.08; emissive: #17343b; emissiveIntensity: 0.16"
+        position="0 0 0.03"
+        scale="0.055 0.055 0.055"
+        shadow="cast: false; receive: false">
+      </a-entity>
+
+      <a-entity
+        id="museum-wall-seal-light"
+        light="type: point; color: #dffcff; intensity: 0.65; distance: 2.2; decay: 2; castShadow: false"
+        position="-0.45 0.55 0.55">
+      </a-entity>
+    </a-entity>
 
     <a-entity id="rig" position="-5 0 0" rotation="0 -90 0" museum-movement="speed: 1.55" rig-collider="wallSelector: .wall; radius: 0.35">
       <a-entity id="camera" camera="near: 0.05" position="0 1.6 0" look-controls="pointerLockEnabled: false; magicWindowTrackingEnabled: false"></a-entity>
@@ -148,40 +190,14 @@
       </div>
     </header>
 
-    <div id="intro-card" role="dialog" aria-modal="true" aria-labelledby="intro-title">
-      <div class="intro-shell">
-        <span class="intro-kicker" data-i18n="howTo">CÓMO RECORRER EL MUSEO</span>
-        <h2 id="intro-title" data-i18n="introTitle">Explora Nascere</h2>
-        <p data-i18n="intro">Recorre el espacio y selecciona los puntos de la exposición para descubrir el proyecto.</p>
-        <div class="intro-controls" aria-label="Controles de navegación">
-          <div class="desktop-only control-card keyboard-control">
-            <div class="controls-demo-wrap" aria-hidden="true">
-              <div class="controls-demo-keys">
-                <span class="controls-demo-key w">W</span>
-                <span class="controls-demo-key a">A</span>
-                <span class="controls-demo-key s">S</span>
-                <span class="controls-demo-key d">D</span>
-              </div>
-              <div class="controls-demo-arrows">
-                <span class="controls-demo-key up">↑</span>
-                <span class="controls-demo-key left">←</span>
-                <span class="controls-demo-key down">↓</span>
-                <span class="controls-demo-key right">→</span>
-              </div>
-            </div>
-            <div class="control-copy"><em data-i18n="move">MOVER</em><b>WASD O FLECHAS</b><small>Usa WASD o las flechas del teclado</small></div>
-          </div>
-          <div class="desktop-only control-card mouse-control">
-            <div class="controls-mouse-demo" aria-hidden="true">
-              <div class="controls-mouse-shape"></div>
-              <div class="controls-drag-arrows">← →</div>
-            </div>
-            <div class="control-copy"><em data-i18n="look">MIRAR</em><b>CLIC + ARRASTRAR</b><small>Mantén pulsado el botón izquierdo y arrastra</small></div>
-          </div>
-          <div class="mobile-only control-card"><b>JOYSTICK</b><em data-i18n="move">Mover</em></div>
-          <div class="mobile-only control-card"><b>DESLIZAR</b><em data-i18n="look">Mirar</em></div>
-        </div>
-        <button id="enter-museum" class="enter-museum" type="button" data-i18n="enter">ENTRAR AL MUSEO</button>
+    <div id="intro-card">
+      <span class="intro-index">01 — 04</span>
+      <p data-i18n="intro">Recorre el espacio y selecciona los puntos de la exposición para descubrir el proyecto.</p>
+      <div class="intro-controls">
+        <span class="desktop-only"><b>WASD</b> <em data-i18n="move">Mover</em></span>
+        <span class="desktop-only"><b>ARRASTRAR</b> <em data-i18n="look">Mirar</em></span>
+        <span class="mobile-only"><b>JOYSTICK</b> <em data-i18n="move">Mover</em></span>
+        <span class="mobile-only"><b>DESLIZAR</b> <em data-i18n="look">Mirar</em></span>
       </div>
     </div>
 
@@ -195,18 +211,6 @@
     </aside>
 
     <div id="mobile-controls" aria-label="Control de movimiento"><div id="joystick-base"><div id="joystick-nub"></div></div></div>
-
-    <div id="controls-reminder" aria-hidden="true">
-      <div class="reminder-desktop" aria-hidden="true">
-        <span data-guide-reminder="desktopMove"></span>
-        <i></i>
-        <span data-guide-reminder="desktopLook"></span>
-      </div>
-      <div class="reminder-mobile" aria-hidden="true">
-        <span data-guide-reminder="mobileMove"></span><i></i><span data-guide-reminder="mobileLook"></span>
-      </div>
-      <button id="controls-help" type="button"><span aria-hidden="true">?</span><span data-guide-reminder="help"></span></button>
-    </div>
   </div>
 </body>
 </html>

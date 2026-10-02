@@ -2,6 +2,20 @@
 (() => {
   const activeSpins = new WeakSet();
 
+  if (!document.querySelector('script[data-nascere-label-fix]')) {
+    const labelScript = document.createElement('script');
+    labelScript.src = './label-fix-v2.js?v=2';
+    labelScript.dataset.nascereLabelFix = 'true';
+    document.head.appendChild(labelScript);
+  }
+
+  if (!document.querySelector('script[data-nascere-sound-fix]')) {
+    const soundScript = document.createElement('script');
+    soundScript.src = './sound-fix-v2.js?v=4';
+    soundScript.dataset.nascereSoundFix = 'true';
+    document.head.appendChild(soundScript);
+  }
+
   function buildSelfSpinPivot(el, index) {
     const mesh = el?.getObject3D('mesh');
     if (!mesh || activeSpins.has(el)) return;

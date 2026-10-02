@@ -29,11 +29,13 @@ window.addEventListener('DOMContentLoaded', () => {
       title: 'Referencias del museo',
       lead: 'Recursos externos utilizados como referencia de diseño o como base técnica en el desarrollo de Nascere.',
       body: `
-        <p><strong>Banco paramétrico</strong><br>
-        Diseño de referencia: Brendan Harmon, <em>Parametric Bench</em>. La versión incluida en Nascere es una adaptación geométrica para WebXR basada en su método de Grasshopper: dos curvas, superficie, extrusión y apoyos.</p>
-        <p><a href="https://baharmon.github.io/parametric-bench/" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">Ver tutorial original de Brendan Harmon ↗</a></p>
-        <p>La definición de Grasshopper asociada al tutorial se publica en el repositorio <em>generative-design</em> de Brendan Harmon, bajo licencia GNU GPL v2.</p>
-        <p><a href="https://github.com/baharmon/generative-design/blob/main/grasshopper/parametric-bench.gh" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">Ver definición original de Grasshopper ↗</a></p>
+        <p><strong>De dónde parte Nascere</strong><br>
+        Nascere nace en parte del trabajo de investigación desarrollado por Marta Muñoz y su equipo sobre el reciclaje del poliestireno expandido (EPS). <br><br>Sus estudios analizan cómo este material puede disolverse con acetona y reutilizarse posteriormente mediante distintas técnicas de fabricación, entre ellas la impresión 3D y el moldeo. Ese proceso fue el punto de partida para comenzar a experimentar con el EPS desde el diseño y plantear su posible aplicación en joyería.<br><br>A partir de ahí, Nascere lleva la investigación a otro terreno. El proyecto explora qué ocurre cuando ese material reciclado se convierte en una colección de joyas y cómo puede explicarse todo el proceso dentro de un museo virtual.<br><br>La investigación científica, por tanto, sirve como base para la parte material del proyecto. Nascere continúa desde ahí con la experimentación, el diseño de las piezas y su presentación en un entorno digital.</p>
+        <p><strong>Artículos de referencia</strong><br>
+        García-Sobrino, R., Cortés, A., Calderón-Villajos, R., Díaz, J. G. y Muñoz, M. (2023).<br><strong>Novel and Accessible Physical Recycling for Expanded Polystyrene Waste with the Use of Acetone as a Solvent and Additive Manufacturing (Direct Ink-Write 3D Printing).</strong></p>
+        <p><a href="https://www.mdpi.com/2073-4360/15/19/3888" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">Ver artículo ↗</a></p>
+        <p>García-Sobrino, R., Cortés, A., Sevilla-García, J. I. y Muñoz, M. (2024).<br><strong>Sustainable Multi-Cycle Physical Recycling of Expanded Polystyrene Waste for Direct Ink Write 3D Printing and Casting: Analysis of Mechanical Properties.</strong></p>
+        <p><a href="https://www.mdpi.com/2073-4360/16/24/3609" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">Ver artículo ↗</a></p>
       `
     },
     en: {
@@ -43,11 +45,13 @@ window.addEventListener('DOMContentLoaded', () => {
       title: 'Museum references',
       lead: 'External resources used as design references or technical foundations in the development of Nascere.',
       body: `
-        <p><strong>Parametric bench</strong><br>
-        Design reference: Brendan Harmon, <em>Parametric Bench</em>. The version included in Nascere is a WebXR geometric adaptation based on his Grasshopper method: two curves, surface, extrusion and end supports.</p>
-        <p><a href="https://baharmon.github.io/parametric-bench/" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">Open Brendan Harmon's original tutorial ↗</a></p>
-        <p>The Grasshopper definition associated with the tutorial is published in Brendan Harmon's <em>generative-design</em> repository under the GNU GPL v2 license.</p>
-        <p><a href="https://github.com/baharmon/generative-design/blob/main/grasshopper/parametric-bench.gh" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">Open original Grasshopper definition ↗</a></p>
+        <p><strong>The Origins of Nascere</strong><br>
+        Nascere stems in part from research conducted by Marta Muñoz and her team on the recycling of expanded polystyrene (EPS). <br><br>Their studies analyze how this material can be dissolved in acetone and subsequently reused through various manufacturing techniques, including 3D printing and molding. This process served as the starting point for experimenting with EPS from a design perspective and considering its potential application in jewelry.<br><br>From there, Nascere takes the research into new territory. The project explores what happens when this recycled material is transformed into a jewelry collection and how the entire process can be presented within a virtual museum.<br><br>Scientific research, therefore, serves as the foundation for the material aspect of the project. Nascere continues from there with the experimentation, the design of the pieces and their presentation in a digital environment.</p> 
+        <p><strong>Reference articles</strong><br> 
+        García-Sobrino, R., Cortés, A., Calderón-Villajos, R., Díaz, J. G. and Muñoz, M. (2023).<br><strong>Novel and Accessible Physical Recycling for Expanded Polystyrene Waste with the Use of Acetone as a Solvent and Additive Manufacturing (Direct Ink-Write 3D Printing).</strong></p> 
+        <p><a href="https://www.mdpi.com/2073-4360/15/19/3888" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">See article ↗</a></p> 
+        <p>García-Sobrino, R., Cortés, A., Sevilla-García, J. I. and Muñoz, M. (2024).<br><strong>Sustainable Multi-Cycle Physical Recycling of Expanded Polystyrene Waste for Direct Ink Write 3D Printing and Casting: Analysis of Mechanical Properties.</strong></p> 
+        <p><a href="https://www.mdpi.com/2073-4360/16/24/3609" target="_blank" rel="noopener noreferrer" style="color:#176d76;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,109,118,.32);">See article ↗</a></p>
       `
     }
   };

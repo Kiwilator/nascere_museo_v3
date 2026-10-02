@@ -43,11 +43,11 @@
     './assets/pendiente_coral.glb',
     './assets/pendiente_coral1.glb',
     './assets/anillo_coral1.glb',
-    './assets/anillo_coral1.glb',
+    './assets/pendientereducido2.glb',
     './assets/pendiente_coral2.glb',
     './assets/pendiente_coral.glb',
     './assets/anillo_coral1.glb',
-    './assets/anillo_coral1.glb'
+    './assets/pendientereducido2.glb'
   ];
 
   const JEWELLERY_LAYOUT = [
