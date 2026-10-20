@@ -39,15 +39,16 @@
      reduce it to 50% of the previous V2 size and restore a very subtle
      floating motion so the pieces feel suspended rather than static.
      --------------------------------------------------------------- */
+  /* Podios: piezas de la colección (sin repetir). Vitrina: modelos diseñados con IA. */
   const LOCAL_JEWELLERY = [
     './assets/pendiente_coral.glb',
-    './assets/pendiente_coral1.glb',
+    './assets/colgante_1_ia.glb',
     './assets/anillo_coral1.glb',
     './assets/pendientereducido2.glb',
-    './assets/pendiente_coral2.glb',
-    './assets/pendiente_coral.glb',
-    './assets/anillo_coral1.glb',
-    './assets/pendientereducido2.glb'
+    './assets/collar_5_ia.glb',
+    './assets/anillo_3_ia.glb',
+    './assets/anillo_5_ia.glb',
+    './assets/collar_1_ia.glb'
   ];
 
   const JEWELLERY_LAYOUT = [
