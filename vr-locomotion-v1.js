@@ -1,7 +1,8 @@
 /* NASCERE — Movimiento con gafas de realidad virtual (Meta Quest y otros mandos WebXR).
    - Stick izquierdo: andar hacia donde se mira (usa el mismo movimiento y las mismas
      colisiones con las paredes que el teclado y el joystick del móvil).
-   - Stick derecho: girar 30° a izquierda o derecha (giro por pasos, más cómodo en RV).
+   - Stick derecho: hacia los lados gira 30° (giro por pasos, más cómodo en RV);
+     hacia delante o atrás también anda.
    Lee los mandos directamente de la sesión WebXR, así que no depende del modelo de mando. */
 AFRAME.registerComponent('vr-locomotion', {
   schema: {
@@ -52,17 +53,18 @@ AFRAME.registerComponent('vr-locomotion', {
     const scene = this.el.sceneEl, xr = scene.renderer && scene.renderer.xr;
     const session = (xr && xr.getSession && xr.getSession()) || scene.xrSession;
     if (!session || !session.inputSources) { if (this.moving) this.stop(); return; }
-    let move = null, turn = 0;
+    let move = null, right = null;
     for (const source of session.inputSources) {
       if (!source.gamepad) continue;
       const s = this.stick(source.gamepad);
-      if (source.handedness === 'right') turn = s.x;
+      if (source.handedness === 'right') right = s;
       else move = s; // izquierdo (o mando único sin lado)
     }
-    // un solo mando derecho: también sirve para andar
-    if (!move) {
-      for (const source of session.inputSources) if (source.gamepad && source.handedness === 'right') { const s = this.stick(source.gamepad); if (Math.abs(s.y) > Math.abs(s.x)) move = { x: 0, y: s.y }; }
-    }
+    const d = this.data.deadzone;
+    const idle = (s) => !s || (Math.abs(s.x) < d && Math.abs(s.y) < d);
+    // el stick derecho también anda hacia delante y atrás si el izquierdo está suelto
+    if (idle(move) && right && Math.abs(right.y) > Math.abs(right.x)) move = { x: 0, y: right.y };
+    const turn = right && Math.abs(right.x) >= Math.abs(right.y) ? right.x : 0;
     const m = this.movement();
     if (m) {
       const x = move ? this.dz(move.x) : 0, y = move ? this.dz(move.y) : 0;
