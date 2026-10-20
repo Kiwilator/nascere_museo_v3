@@ -14,6 +14,7 @@
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="./parametric-bench-harmon.js?v=1"></script>
   <script src="./script.js?v=14"></script>
+  <script src="./vr-locomotion-v1.js?v=1"></script>
   <script src="./hotfix-v2.js?v=5"></script>
   <script src="./visual-fix-v2.js?v=1"></script>
   <script src="./interaction-pass-v2.js?v=2"></script>
@@ -170,7 +171,9 @@
       </a-entity>
     </a-entity>
 
-    <a-entity id="rig" position="-5 0 0" rotation="0 -90 0" museum-movement="speed: 1.55" rig-collider="wallSelector: .wall; radius: 0.35">
+    <a-entity id="rig" position="-5 0 0" rotation="0 -90 0" museum-movement="speed: 1.55" rig-collider="wallSelector: .wall; radius: 0.35" vr-locomotion>
+      <a-entity id="vr-hand-left" oculus-touch-controls="hand: left"></a-entity>
+      <a-entity id="vr-hand-right" oculus-touch-controls="hand: right"></a-entity>
       <a-entity id="camera" camera="near: 0.05" position="0 1.6 0" look-controls="pointerLockEnabled: false; magicWindowTrackingEnabled: false"></a-entity>
     </a-entity>
   </a-scene>
