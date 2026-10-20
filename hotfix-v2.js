@@ -42,13 +42,13 @@
   /* Podios: piezas de la colección (sin repetir). Vitrina: modelos diseñados con IA. */
   const LOCAL_JEWELLERY = [
     './assets/pendiente_coral.glb',
-    './assets/colgante_1_ia.glb',
+    './assets/colgante_1_ia.glb?v=2',
     './assets/anillo_coral1.glb',
     './assets/pendientereducido2.glb',
-    './assets/collar_5_ia.glb',
-    './assets/anillo_3_ia.glb',
-    './assets/anillo_5_ia.glb',
-    './assets/collar_1_ia.glb'
+    './assets/collar_5_ia.glb?v=2',
+    './assets/anillo_3_ia.glb?v=2',
+    './assets/anillo_5_ia.glb?v=2',
+    './assets/collar_1_ia.glb?v=2'
   ];
 
   const JEWELLERY_LAYOUT = [
